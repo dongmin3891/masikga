@@ -7,11 +7,17 @@ const CategoryButton = () :JSX.Element => {
 
   const [menuList, setMenuList] = useState<MenuListType[] | null>();
 
-  
+  const apiTest = () => {
+    const result = fetch(`http://localhost:4000/api/hello`)
+    .then(response => response.json())
+    .then(data => console.log("data",data));
+    console.log("apiTest", result);
+  }
 
   // 버튼 눌렀을 때 아래 버튼 아래 화면에 리스트 뿌리기
   // TODO : json파일 만들어서 불러오기!
   const hangOverListButtonClick  = (kind : string) => {
+    apiTest();
     if(kind === "hangover") {
       setMenuList([{
         id : "1",
