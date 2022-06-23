@@ -34,6 +34,7 @@ module.exports = {
           unnamedComponents: "arrow-function",
         },
       ],
+      'react/jsx-props-no-spreading': 'off', // spread off
       'linebreak-style': 0,
       'import/prefer-default-export': 0,
       'prettier/prettier': 0,

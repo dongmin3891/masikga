@@ -4,9 +4,13 @@ import MenuList from '../../pages/MenuList';
 import { MenuListType } from '../../types';
 import api from '../../api';
 
+
+
+
 const CategoryButton = () :JSX.Element => {
 
-  const [menuList, setMenuList] = useState<MenuListType[] | null>();
+  const [menuList, setMenuList] = useState<MenuListType[]>([]);
+
 
   useEffect(() => {
     test();
@@ -86,7 +90,7 @@ const CategoryButton = () :JSX.Element => {
         </div>
         {menuList !== null &&
         // TODO : menulist property error
-          <MenuList menulist={menuList} />
+          <MenuList {...menuList} />
         }
         {/* <ul>
           {menuList.map((hangOverList) => (
