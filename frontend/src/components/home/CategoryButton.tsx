@@ -7,6 +7,7 @@ import api from '../../api';
 
 
 
+
 const CategoryButton = () :JSX.Element => {
 
   const [menuList, setMenuList] = useState<MenuListType[]>([]);
@@ -89,8 +90,8 @@ const CategoryButton = () :JSX.Element => {
           <button type="button" onClick={() => hangOverListButtonClick("random")}>한식!</button>
         </div>
         {menuList !== null &&
-        // TODO : menulist property error
-          <MenuList {...menuList} />
+        
+          <MenuList menu={menuList} />
         }
         {/* <ul>
           {menuList.map((hangOverList) => (
