@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import MenuList from '../../pages/MenuList';
 // import styled from 'styled-components';
-import { MenuListType } from '../../types';
 import api from '../../api';
+import categoryList from '../../interfaces/categoryList';
 
 
 
@@ -10,71 +9,70 @@ import api from '../../api';
 
 const CategoryButton = () :JSX.Element => {
 
-  const [menuList, setMenuList] = useState<MenuListType[]>([]);
+  const [category, setCategory] = useState<categoryList[]>([]);
 
 
   useEffect(() => {
-    test();
-    menuListTest();
+    getCategoryList();
+    console.log("asdsad", category)
   },[])
 
-  const test = async () => {
-    const hello = await api.getHelloWorld();
-    console.log("hello", hello);
-  }
-
-  const menuListTest = async () => {
-    const menuTest = await api.getMenuList();
-    console.log("menu", menuTest);
+  const getCategoryList = async () => {
+    const result  = await api.getCategoryList();
+    console.log("category :", result);
+    // TODO : type 선언
+    if(result.length > 0){
+      setCategory(result);
+    }
   }
 
   // 버튼 눌렀을 때 아래 버튼 아래 화면에 리스트 뿌리기
   // TODO : json파일 만들어서 불러오기!
   
-  const hangOverListButtonClick  = (kind : string) => {
-    if(kind === "hangover") {
-      setMenuList([{
-        id : "1",
-        kind : "hangover",
-        image : "",
-        foodName : [
-          {
-            id: "1",
-            name : "선지 해장국"
-          }
-        ],
-        storeName : "은희네 제주국",
-        location : "",
-      }])
-    }else if ( kind === "choice"){
-      setMenuList([{
-        id : "1",
-        kind : "choice",
-        image : "",
-        foodName : [
-          {
-            id : "1",
-            name : "돈까스"
-          }
-        ],
-        storeName : "연돈",
-        location : "",
-      }])
-    }else{
-      setMenuList([{
-        id : "1",
-        kind : "random",
-        image : "",
-        foodName : [
-          {
-            id : "1",
-            name : "아무거나"
-          }
-        ],
-        storeName : "랜덤함수",
-        location : "",
-      }])
-    }
+  const hangOverListButtonClick  = () => {
+    // if(kind === "hangover") {
+    //   setMenuList([{
+    //     id : "1",
+    //     kind : "hangover",
+    //     image : "",
+    //     foodName : [
+    //       {
+    //         id: "1",
+    //         name : "선지 해장국"
+    //       }
+    //     ],
+    //     storeName : "은희네 제주국",
+    //     location : "",
+    //   }])
+    // }else if ( kind === "choice"){
+    //   setMenuList([{
+    //     id : "1",
+    //     kind : "choice",
+    //     image : "",
+    //     foodName : [
+    //       {
+    //         id : "1",
+    //         name : "돈까스"
+    //       }
+    //     ],
+    //     storeName : "연돈",
+    //     location : "",
+    //   }])
+    // }else{
+    //   setMenuList([{
+    //     id : "1",
+    //     kind : "random",
+    //     image : "",
+    //     foodName : [
+    //       {
+    //         id : "1",
+    //         name : "아무거나"
+    //       }
+    //     ],
+    //     storeName : "랜덤함수",
+    //     location : "",
+    //   }])
+    // }
     
   }
 
@@ -89,10 +87,10 @@ const CategoryButton = () :JSX.Element => {
           <button type="button" onClick={() => hangOverListButtonClick("random")}>랜덤!</button>
           <button type="button" onClick={() => hangOverListButtonClick("random")}>한식!</button>
         </div>
-        {menuList !== null &&
+        {/* {menuList !== null &&
         
           <MenuList menu={menuList} />
-        }
+        } */}
         {/* <ul>
           {menuList.map((hangOverList) => (
             <li key={hangOverList.id}>{hangOverList.storeName}</li>
