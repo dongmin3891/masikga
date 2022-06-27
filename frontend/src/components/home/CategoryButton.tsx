@@ -21,8 +21,8 @@ const CategoryButton = () :JSX.Element => {
     const result  = await api.getCategoryList();
     console.log("category :", result);
     // TODO : type 선언
-    if(result.length > 0){
-      setCategory(result);
+    if(result.data.length > 0){
+      setCategory(result.data);
     }
   }
 
