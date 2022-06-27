@@ -16,7 +16,7 @@ const Header = () :JSX.Element => {
     
         <div className='header'>
             <Title>
-                <header>마 식 가2222222</header>
+                <header>마 식 가</header>
                 {/* <button type='button'>햄버거</button> */}
             </Title>
         </div>
