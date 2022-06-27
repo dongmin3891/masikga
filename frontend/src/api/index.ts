@@ -14,8 +14,9 @@ instance.interceptors.request.use(
     }
 );
 instance.interceptors.response.use((response) => {
-    if(response.status === 200) {
-        return response.data;
+    if(response.data.retCode === "0000") {
+        const res = response.data
+        return res;
     } 
     
     return undefined;
@@ -34,6 +35,13 @@ export default {
     getMenuList(data = '') {
         return instance({
             url : '/menuList',
+            method : 'post',
+            params : data
+        })
+    },
+    getCategoryList(data = '') {
+        return instance({
+            url : '/category',
             method : 'post',
             params : data
         })
