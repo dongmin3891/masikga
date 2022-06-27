@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-let category = {
+// TODO : api 설계 변경해야함 20220627
+let data = {
     retSysMsg : "SUCCESS",
     data : [
         {
@@ -44,6 +45,6 @@ let category = {
 router.post('/', function (req, res, next) {
     res.setHeader("Content-Type", "application/json");
     res.statusCode = 200;
-    res.json({category})
+    res.json(data)
 });
 module.exports = router;
