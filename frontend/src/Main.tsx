@@ -3,7 +3,7 @@ import {BrowserRouter,Switch, Route, Redirect} from 'react-router-dom';
 import GlobalStyles from './GlobalStyles';
 import Header from './components/header/Header';
 import Login from './components/login/Login';
-import Home from './components/home/CategoryButton';
+import MenuList from './pages/MenuList';
 
 
 const Main = () => {
@@ -17,7 +17,7 @@ const Main = () => {
           <Header />
             <Switch>
                 <Route path='/login' component={Login} />
-                <Route path='/home' component={Home}/>
+                <Route path='/menulist' component={MenuList}/>
             </Switch>
             <Redirect to='/login' />
         </BrowserRouter>

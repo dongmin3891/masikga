@@ -21,7 +21,7 @@ const CenterBox = styled(LoginBox)`
 const Login = ({history}):JSX.Element => {
 
     const goHome = () => {
-        history.replace("/home");
+        history.replace("/menulist");
     }    
 
   return (
