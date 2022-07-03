@@ -1,4 +1,5 @@
 export default interface categoryList {
-    id : number;
-    categoryName : string
+    id: number;
+    kind: string,
+    categoryName: string
 }
