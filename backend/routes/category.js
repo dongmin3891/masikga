@@ -7,34 +7,42 @@ let data = {
     data : [
         {
             id: 0,
+            kind: "A",
             categoryName: '전체'
         },
         {
             id: 1,
+            kind: "K",
             categoryName: '한식',
         },
         {
             id: 2,
+            kind: "C",
             categoryName: '중식'
         },
         {
             id: 3,
+            kind: "J",
             categoryName: '일식'
         },
         {
             id: 4,
+            kind: "W",
             categoryName: '양식'
         },
         {
             id: 5,
+            kind: "S",
             categoryName: '분식'
         },
         {
             id: 6,
+            kind: "AC",
             categoryName: '술'
         },
         {
             id: 7,
+            kind: "R",
             categoryName: '랜덤'
         }
     ],
