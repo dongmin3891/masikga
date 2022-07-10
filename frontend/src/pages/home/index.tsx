@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import CategoryButton from '../components/home/CategoryButton';
-import categoryList from '../interfaces/categoryList';
-import api from '../api';
+import CategoryButton from '../../components/home';
+import categoryList from '../../interfaces/categoryList';
+import api from '../../api';
 
 const CategoryList = () :JSX.Element => {
 
@@ -30,7 +30,6 @@ const CategoryList = () :JSX.Element => {
               <CategoryButton key={items.id} id={items.id} categoryName={items.categoryName} />
             ))
           }
-         
       </>
     
   );

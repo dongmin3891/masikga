@@ -1,9 +1,9 @@
 import React from 'react';
 import {BrowserRouter,Switch, Route, Redirect} from 'react-router-dom';
 import GlobalStyles from './GlobalStyles';
-import Header from './components/header/Header';
-import Login from './components/login/Login';
-import CategoryList from './pages/CategoryList';
+import Header from './components/header';
+import CategoryList from './pages/home';
+import LoginPage from './pages/login';
 
 
 const Main = () => {
@@ -17,7 +17,7 @@ const Main = () => {
           <GlobalStyles />
           <Header />
             <Switch>
-                <Route path='/login' component={Login} />
+                <Route path='/login' component={LoginPage} />
                 <Route path='/menulist' component={CategoryList}/>
             </Switch>
             <Redirect to='/login' />
