@@ -5,7 +5,7 @@ import api from '../api';
 
 const CategoryList = () :JSX.Element => {
 
-  const [category, setCategory] = useState<categoryList[]>(null);
+  const [category, setCategory] = useState<categoryList[]>([]);
 
 
   useEffect(() => {
