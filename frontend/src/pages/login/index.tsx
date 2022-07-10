@@ -5,7 +5,7 @@ const LoginPage = ({history} : any) => {
     
     const goHome = () => {
         console.log("goHome");
-        history.replace("/menulist");
+        history.replace("/home");
     }
 
     return (

@@ -2,8 +2,8 @@ import React from 'react';
 import {BrowserRouter,Switch, Route, Redirect} from 'react-router-dom';
 import GlobalStyles from './GlobalStyles';
 import Header from './components/header';
-import CategoryList from './pages/home';
 import LoginPage from './pages/login';
+import Home from './pages/home';
 
 
 const Main = () => {
@@ -21,7 +21,7 @@ const Main = () => {
           <Header />
             <Switch>
                 <Route path='/login' component={LoginPage} />
-                <Route path='/menulist' component={CategoryList}/>
+                <Route path='/home' component={Home}/>
             </Switch>
             <Redirect to='/login' />
         </BrowserRouter>
