@@ -1,21 +1,19 @@
-import React from 'react';
-import * as s from './style';
+import React from "react"
+import * as S from "./style";
 
-const Login = ({history}):JSX.Element => {
-
-    const goHome = () => {
-        history.replace("/home");
-    }    
-
-  return (
-    
-            <S.LoginBox>
-                    <CenterBox onClick={goHome}>
-                        고고고~
-                    </CenterBox>
-            </LoginBox>
-    
-  );
+interface IProps {
+    goHomeOnClick: () => void;
 }
 
-export default Login;
+const LoginButton = ({ goHomeOnClick } : IProps) => {
+    
+    return (
+        <S.LoginBox>
+            <S.CenterBox>
+              <button onClick={goHomeOnClick}>로그인</button>
+            </S.CenterBox>
+        </S.LoginBox>
+    )
+}
+
+export default LoginButton;

@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import CategoryButton from '../components/home/CategoryButton';
-import categoryList from '../interfaces/categoryList';
-import api from '../api';
-// import MenuListType from '../zinterfaces/menuList';
+import CategoryButton from '../../../components/home';
+import categoryList from '../../../interfaces/categoryList';
+import api from '../../../api';
 
-const CategoryList = () :JSX.Element => {
+const CategoryList = ({id, categoryName}) :JSX.Element => {
 
-  const [category, setCategory] = useState<categoryList[]>(null);
-  // const [menuList, setMenuList] = useState<MenuListType[]>(null);
 
   // useEffect(() => {
   //   getCategoryList();
@@ -41,15 +38,9 @@ const CategoryList = () :JSX.Element => {
 
   return (
       <>
-        <div>
-          메뉴를 골라줘
-        </div>
-          {
-            category?.map((items) => (
-              <CategoryButton key={items.id} id={items.id} categoryName={items.categoryName} />
-            ))
-          }
-         
+        
+        <CategoryButton key={id} id={id} categoryName={categoryName} />
+        
       </>
     
   );
