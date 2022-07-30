@@ -5,7 +5,7 @@ import api from "../../api";
 import categoryList from "../../interfaces/categoryList";
 
 const Home = () => {
-
+// 테스트
   const [category, setCategory] = useState<categoryList[]>(null);
 // 한번 더 테스트 1
   useEffect(() => {
