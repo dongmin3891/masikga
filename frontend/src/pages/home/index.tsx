@@ -7,11 +7,11 @@ import categoryList from "../../interfaces/categoryList";
 const Home = () => {
 
   const [category, setCategory] = useState<categoryList[]>(null);
-
+// 한번 더 테스트 1
   useEffect(() => {
     getCategoryList();
 },[])
-
+// pull request test
 const getCategoryList = async () => {
     const result = await api.getCategoryList();
     // TODO : 조건 api code로 변경
