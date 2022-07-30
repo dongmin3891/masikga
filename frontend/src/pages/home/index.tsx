@@ -7,7 +7,7 @@ import categoryList from "../../interfaces/categoryList";
 const Home = () => {
 
   const [category, setCategory] = useState<categoryList[]>(null);
-// 한번 더 테스트
+// 한번 더 테스트 1
   useEffect(() => {
     getCategoryList();
 },[])
