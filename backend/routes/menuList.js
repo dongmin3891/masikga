@@ -17,13 +17,80 @@ let data = {
       }],
       storeName : "대가원",
       location : "서울 강서구 공항대로 209 GMG엘스타 4층 401-405호 대가원"
+    },
+    {
+      id: 1,
+      storekind: "K",
+      image : "",
+      foodName : [{
+        id: 0,
+        foodkind: 'meal',
+        name : "육회비빔밥"
+      }],
+      storeName : "대가원",
+      location : "서울 강서구 공항대로 209 GMG엘스타 4층 401-405호 대가원"
+    },
+    {
+      id: 2,
+      storekind: "K",
+      image : "",
+      foodName : [{
+        id: 0,
+        foodkind: 'meal',
+        name : "육회비빔밥"
+      }],
+      storeName : "대가원",
+      location : "서울 강서구 공항대로 209 GMG엘스타 4층 401-405호 대가원"
+    }
+    ,{
+      id: 3,
+      storekind: "K",
+      image : "",
+      foodName : [{
+        id: 0,
+        foodkind: 'meal',
+        name : "육회비빔밥"
+      }],
+      storeName : "대가원",
+      location : "서울 강서구 공항대로 209 GMG엘스타 4층 401-405호 대가원"
+    },
+    {
+      id: 4,
+      storekind: "K",
+      image : "",
+      foodName : [{
+        id: 0,
+        foodkind: 'meal',
+        name : "육회비빔밥"
+      }],
+      storeName : "대가원",
+      location : "서울 강서구 공항대로 209 GMG엘스타 4층 401-405호 대가원"
     }
   ],
   retCode: "0000",
   retMsg: "SUCCESS"
 }
 
+const filterMenuList = (id = '0') => {
+  console.log("filterResult0", data);
+  let copyData = data;
+  console.log("copyData", copyData)
+  const filterResult = copyData.data.filter((items) => {
+    console.log("Number",items.id, Number(id))
+    return items.id === Number(id);
+    
+  })
+  console.log("filterResult", filterResult);
+  copyData.data = filterResult;
+  console.log("filterResult2", copyData);
+  return copyData;
+}
+
 router.post('/', function (req, res, next) {
+    console.log(" req 확인 body ===>", req.body, req.query);
+    if(req.query.id){
+      filterMenuList(req.query.id);
+    }
     res.setHeader("Content-Type", "application/json");
     res.statusCode = 200;
     res.json(data)
