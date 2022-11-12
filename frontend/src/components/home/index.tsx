@@ -7,14 +7,14 @@ const CategoryButton = ({ id, categoryName }) => {
   const history = useHistory();
   const categoryIdOnClick = (e) => {
     history.replace({
-      pathname: '/home',
-      state: e.target
+      pathname: `/home/${e.target.id}`,
+      // state: e.target
     })
     console.log("test", e.currentTarget)
   }
 
   return (
-        <button type="button" key={id} onClick={(e) =>categoryIdOnClick(e)} >{categoryName}</button>
+        <button type="button" id={id} key={id} onClick={(e) =>categoryIdOnClick(e)} >{categoryName}</button>
   );
 }
 
