@@ -3,7 +3,7 @@ const router = express.Router();
 
 // TODO : category id에 따라 id에 맞는 것만 호출해야함 일단은 dummy로
 // 타입별로 따로 api를 설계해야되나
-let data = {
+let menu = {
   retSysMsg : "SUCCESS",
   data : [
     {
@@ -25,9 +25,9 @@ let data = {
       foodName : [{
         id: 0,
         foodkind: 'meal',
-        name : "육회비빔밥"
+        name : "돈까스"
       }],
-      storeName : "대가원",
+      storeName : "인정 돈까스",
       location : "서울 강서구 공항대로 209 GMG엘스타 4층 401-405호 대가원"
     },
     {
@@ -37,9 +37,9 @@ let data = {
       foodName : [{
         id: 0,
         foodkind: 'meal',
-        name : "육회비빔밥"
+        name : "강릉 순두부"
       }],
-      storeName : "대가원",
+      storeName : "강릉순두부",
       location : "서울 강서구 공항대로 209 GMG엘스타 4층 401-405호 대가원"
     }
     ,{
@@ -49,9 +49,9 @@ let data = {
       foodName : [{
         id: 0,
         foodkind: 'meal',
-        name : "육회비빔밥"
+        name : "돼지국밥"
       }],
-      storeName : "대가원",
+      storeName : "오국밥",
       location : "서울 강서구 공항대로 209 GMG엘스타 4층 401-405호 대가원"
     },
     {
@@ -61,9 +61,9 @@ let data = {
       foodName : [{
         id: 0,
         foodkind: 'meal',
-        name : "육회비빔밥"
+        name : "랜덤메뉴"
       }],
-      storeName : "대가원",
+      storeName : "갈비의계절",
       location : "서울 강서구 공항대로 209 GMG엘스타 4층 401-405호 대가원"
     }
   ],
@@ -71,28 +71,21 @@ let data = {
   retMsg: "SUCCESS"
 }
 
-const filterMenuList = (id = '0') => {
-  console.log("filterResult0", data);
-  let copyData = data;
-  console.log("copyData", copyData)
-  const filterResult = copyData.data.filter((items) => {
-    console.log("Number",items.id, Number(id))
-    return items.id === Number(id);
-    
+const filterMenuList = (kind = 'A') => {
+  let cloneMenu = {...menu};
+  const filterResult = cloneMenu.data.filter((items) => {
+    return items.storekind === kind;
   })
-  console.log("filterResult", filterResult);
-  copyData.data = filterResult;
-  console.log("filterResult2", copyData);
-  return copyData;
+  cloneMenu.data = filterResult;
+  return cloneMenu;
 }
 
 router.post('/', function (req, res, next) {
-    console.log(" req 확인 body ===>", req.body, req.query);
-    if(req.query.id){
-      filterMenuList(req.query.id);
-    }
+    let returnMenu;
+    if(req.query.kind !== 'A') returnMenu = filterMenuList(req.query.kind);
+    else returnMenu = {...menu}    
     res.setHeader("Content-Type", "application/json");
     res.statusCode = 200;
-    res.json(data)
+    res.json(returnMenu);
   });
   module.exports = router;
