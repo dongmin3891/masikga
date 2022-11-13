@@ -32,11 +32,11 @@ export default {
             params : data
         })
     },
-    getMenuList(data = '') {
+    getMenuList(data = 'A') {
         return instance({
             url : '/menuList',
             method : 'post',
-            params : data
+            params : {kind: data}
         })
     },
     getCategoryList(data = '') {
