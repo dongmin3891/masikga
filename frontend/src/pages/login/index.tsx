@@ -22,7 +22,7 @@ const LoginPage = ({history} : any) => {
       }
       const { name, password } = gettingUserInfo();
       // 로컬스토리지에 저장된 회원정보와 사용자가 입력한 회원정보를 비교
-      if(name === userInfo.name && password === userInfo.password){
+      if(name === userInfo.id && password === userInfo.password){
         // TODO: 로컬스토리지 저장 여부 확인
         history.push("/home");
       } else {
@@ -45,7 +45,7 @@ const LoginPage = ({history} : any) => {
     return (
       <>
       <div>
-        <input type="text" placeholder="아이디입력" name='id' value={userInfo.name} onChange={(e) => settingUserInfo(e)} />
+        <input type="text" placeholder="아이디입력" name='id' value={userInfo.id} onChange={(e) => settingUserInfo(e)} />
         <input type="password" placeholder="비밀번호 입력" name='password' value={userInfo.password} onChange={(e) => settingUserInfo(e)} />      
         <LoginButton onClick={goHome} />            
       </div>
