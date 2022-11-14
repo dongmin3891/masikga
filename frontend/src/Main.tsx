@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {BrowserRouter,Switch, Route} from 'react-router-dom';
 import GlobalStyles from './GlobalStyles';
 import Header from './components/header';
@@ -21,7 +21,7 @@ const Main = () => {
           <Header />
             <Switch>
                 <Route path='/login' component={LoginPage} />
-                <Route path='/home' component={Home}/>
+                <Route path='/' component={Home}/>
             </Switch>
             {/* <Redirect to='/login' /> */}
         </BrowserRouter>
