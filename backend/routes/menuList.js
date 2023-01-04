@@ -20,7 +20,7 @@ let menu = {
     },
     {
       id: 1,
-      storekind: "K",
+      storekind: "J",
       image : "",
       foodName : [{
         id: 0,
@@ -73,19 +73,20 @@ let menu = {
 
 const filterMenuList = (kind = 'A') => {
   let cloneMenu = {...menu};
-  const filterResult = cloneMenu.data.filter((items) => {
-    return items.storekind === kind;
-  })
+  const filterResult = cloneMenu.data.filter(items => items.storekind === kind)
   cloneMenu.data = filterResult;
   return cloneMenu;
 }
 
 router.post('/', function (req, res, next) {
     let returnMenu;
-    if(req.query.kind !== 'A') returnMenu = filterMenuList(req.query.kind);
+    let pars = (Object.keys(req.body).length > 0)? req.body : req.query;
+    if(pars.kind !== 'A') returnMenu = filterMenuList(pars.kind);
     else returnMenu = {...menu}    
+    
     res.setHeader("Content-Type", "application/json");
     res.statusCode = 200;
     res.json(returnMenu);
   });
-  module.exports = router;
+
+module.exports = router;

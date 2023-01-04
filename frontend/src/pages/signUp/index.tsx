@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router';
+import { getSignUp } from '../../api';
+import { settingUserInfo } from '../../store/LocalStore';
 
 function SignUp() {
 
@@ -8,6 +11,7 @@ function SignUp() {
     password2: '',
   })
   const [passwordConfirm, setPasswordConfirm] = useState(true);
+  const history = useHistory();
 
   useEffect(() => {
     if(userInfo.password.length > 0 && userInfo.password2.length > 0){
@@ -20,8 +24,9 @@ function SignUp() {
     
   },[userInfo.password, userInfo.password2])
 
-  const settingUserInfo = (e) => {
+  const saveUserInfo = (e) => {
     const { name, value } = e.target;
+    console.log("e.target", e.target);
     if(name === 'id'){
       setUserInfo({...userInfo, id: value })
     }else if(name ==='password' ){
@@ -31,7 +36,7 @@ function SignUp() {
     }
   }
   // toast popup으로 하기
-  const signUpOnClick = () => {
+  const signUpOnClick = async () => {
     if(userInfo.id.length < 1){
       console.log("id를 입력해주세요!")
     } else if (userInfo.password.length < 1){
@@ -42,11 +47,17 @@ function SignUp() {
       // 만약 비밀번호가 틀린상태 여보 회원가입을 성공함 
       if(passwordConfirm){
         console.log("회원가입 성공!")
-        const setuUserInfo = {
+        const setUserInfo = {
           id: userInfo.id,
           password: userInfo.password2
         };
-        settingUserInfo(setuUserInfo)
+        const result = await getSignUp(setUserInfo);
+        if(result.retCode === "0001"){
+          console.log("이미 가입된 회원이다.");
+          return;
+        }
+        settingUserInfo(setUserInfo);
+        history.push('/');
       }else {
         console.log("비밀번호 확인!");
       }
@@ -59,15 +70,15 @@ function SignUp() {
       <h1>회원가입 페이지</h1>
       <div>
         <span>아이디 : </span>
-        <input type="text" placeholder='아이디' name='id' onChange={(e) => settingUserInfo(e)}  />
+        <input type="text" placeholder='아이디' name='id' onChange={(e) => saveUserInfo(e)}  />
       </div>
       <div>
         <span>비밀번호 : </span>
-        <input type="password" placeholder='비밀번호' name='password' onChange={(e) => settingUserInfo(e)} />
+        <input type="password" placeholder='비밀번호' name='password' onChange={(e) => saveUserInfo(e)} />
       </div>
       <div>
         <span>비밀번호 확인 : </span>
-        <input type="password" placeholder='비밀번호 확인' name='passwrod_confirm' onChange={(e) => settingUserInfo(e)} />
+        <input type="password" placeholder='비밀번호 확인' name='passwrod_confirm' onChange={(e) => saveUserInfo(e)} />
       </div>
       {!passwordConfirm && 
         <div>비밀번호가 일치하지 않습니다!</div>
