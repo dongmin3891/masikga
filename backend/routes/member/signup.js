@@ -9,8 +9,6 @@ let data = {
 }
 
 router.post('/', async function(req, res, next) {
-  console.log("req member/signup",req.body);
-  console.log("req member/signup2",req.query);
   const { id, password } = req.body;
   let user = await User.findOne({id});
   //이미 존재하는 경우
