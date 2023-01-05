@@ -1,13 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
-import Main from './Main';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
+import { QueryClient, QueryClientProvider } from "react-query"
+import { ReactQueryDevtools } from "react-query/devtools"
 
+const queryClient = new QueryClient();
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Main/>
-  </React.StrictMode>,
+    <React.StrictMode>
+      <QueryClientProvider client={queryClient}>
+        {/* devtools */}
+        <ReactQueryDevtools initialIsOpen={true} />
+        <App/>
+      </QueryClientProvider>
+    </React.StrictMode>,
+
   document.getElementById('root')
 );
 

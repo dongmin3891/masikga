@@ -2,15 +2,15 @@ import React from "react"
 import * as S from "./style";
 
 interface IProps {
-    goHomeOnClick: () => void;
+    onClick: () => void;
 }
 
-const LoginButton = ({ goHomeOnClick } : IProps) => {
+const LoginButton = ({ onClick } : IProps) => {
     
     return (
         <S.LoginBox>
             <S.CenterBox>
-              <button onClick={goHomeOnClick}>로그인</button>
+              <button onClick={onClick}>로그인</button>
             </S.CenterBox>
         </S.LoginBox>
     )

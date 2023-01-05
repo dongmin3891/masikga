@@ -50,7 +50,7 @@ let data = {
     retMsg: "SUCCESS",
 }
 
-router.post('/', function (req, res, next) {
+router.get('/', function (req, res, next) {
     res.setHeader("Content-Type", "application/json");
     res.statusCode = 200;
     res.json(data)

@@ -20,3 +20,8 @@
 //     storeName : string;
 //     location : string;
 // }
+
+export type Category = {
+  kind : string
+}
+
