@@ -3,7 +3,7 @@ import CategoryList from '../interfaces/CategoryList';
 import MenuListType from '../interfaces/menuList';
 
 export const apiClient = axios.create({
-    baseURL: '',
+    baseURL: process.env.REACT_APP_API_SERVER,
     timeout: 10000,
     headers: {
       'Content-Type': 'application/json', 
