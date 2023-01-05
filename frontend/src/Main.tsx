@@ -16,9 +16,9 @@ const Main = () => {
 
   useEffect(() => {
     //localstroge에 user 정보가 없으면 login페이지로 redirect
-    if(gettingUserInfo() === null || gettingUserInfo() === undefined){
-      history?.push({pathname: '/login' });
-    }
+    // if(gettingUserInfo() === null || gettingUserInfo() === undefined){
+    //   history?.push({pathname: '/login' });
+    // }
   }, [])
 
   return (
@@ -30,7 +30,7 @@ const Main = () => {
           <GlobalStyles />
           <Header />
             <Switch>
-                <Route exact path='/home' component={Home}/>
+                <Route exact path='/' component={Home}/>
                 <Route path='/login' component={LoginPage} />
                 <Route path='/signup' component={SignUp} />
             </Switch>
