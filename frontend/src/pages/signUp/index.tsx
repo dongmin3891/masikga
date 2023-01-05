@@ -46,7 +46,6 @@ function SignUp() {
     } else {
       // 만약 비밀번호가 틀린상태 여보 회원가입을 성공함 
       if(passwordConfirm){
-        console.log("회원가입 성공!")
         const setUserInfo = {
           id: userInfo.id,
           password: userInfo.password2
@@ -57,7 +56,7 @@ function SignUp() {
           return;
         }
         settingUserInfo(setUserInfo);
-        history.push('/');
+        history.push('/home');
       }else {
         console.log("비밀번호 확인!");
       }
