@@ -18,6 +18,8 @@ const Main = () => {
     // localstroge에 user 정보가 없으면 login페이지로 redirect
     if(gettingUserInfo() === null || gettingUserInfo() === undefined){
       history?.push({pathname: '/login' });
+    }else {
+      history.replace({pathname: '/home' });
     }
   }, [])
 
