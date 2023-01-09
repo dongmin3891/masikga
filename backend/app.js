@@ -50,6 +50,7 @@ app.use(logger('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api', require('./routes/api'));
 
 app.use('/', indexRouter);
@@ -64,8 +65,6 @@ app.use('/member/signup', signupRouter )
 app.use(function (req, res, next) {
   next(createError(404));
 });
-
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('*', function (request, response){
   response.sendFile(path.resolve(__dirname, 'public', 'index.html'))
