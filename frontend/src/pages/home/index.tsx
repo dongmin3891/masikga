@@ -42,7 +42,7 @@ const Home = () => {
           메뉴를 골라줘
         </div>
         {
-            categoryList?.data.map((items) => (
+            categoryList?.data?.map((items) => (
               <CategoryButton 
                 setMenuId={setMunuId} 
                 key={items.id} 
