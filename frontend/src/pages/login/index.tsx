@@ -35,7 +35,16 @@ const LoginPage = ({history} : any) => {
     useEffect(() => {
       console.log("배포 테스트@@@@@@@@@@@@@@@@@@@@@@@@");
     }, [])
+     useEffect(() => {
+      console.log("배포 테스트1@@@@@@@@@@@@@@@@@@@@@@@@");
+    }, [])
 
+    useEffect(() => {
+      console.log("배포 테스트2@@@@@@@@@@@@@@@@@@@@@@@@");
+    }, [])
+    useEffect(() => {
+      console.log("배포 테스트3@@@@@@@@@@@@@@@@@@@@@@@@");
+    }, [])
     const loginHandler = () => {
       const { id, password } = userInfo;
 
