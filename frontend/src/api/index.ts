@@ -12,7 +12,6 @@ export const apiClient = axios.create({
 });
 apiClient.interceptors.request.use(
     function (config) {
-        console.log("error");
         return config;
     },
     function (error) {
@@ -49,6 +48,11 @@ export const getMenuList = async(kind = 'A') => {
 
 export const getSignUp = async(data) => {
   const response = await apiClient.post<any>('/member/signup', data);
+  return response;
+}
+
+export const getLogin = async(data) => {
+  const response = await apiClient.post<any>('/member/login', data);
   return response;
 }
 
