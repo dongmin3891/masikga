@@ -1,35 +1,65 @@
 import React, { useEffect, useState } from "react"
 import { withRouter } from "react-router";
-import api from "../../api";
 import LoginButton from "../../components/login";
 import { gettingUserInfo } from "../../store/LocalStore";
+import { getLogin } from "../../api";
+import { useMutation } from "react-query";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import UserInfo from "../../interfaces/userInfo";
 
 const LoginPage = ({history} : any) => {
     
-    const [userInfo, setUserInfo] = useState({
+    const [userInfo, setUserInfo] = useState<UserInfo>({
       id: '',
       password: '',
     });  
 
-    useEffect(() => {
-      console.log("userInfo", userInfo);
-    }, [userInfo])
+    const loginMutation = useMutation(getLogin, {
+      onMutate: variable => {
+        console.log("onMutate", variable);
+      },
+      onError: (error : any) => {
+        errorHandler(error);
+      },
+      onSuccess: (data, variables, context) => {
+        settingUserInfo(userInfo);
+        history.push("/home");
+        console.log("success", data, variables, context);
+      },
+      onSettled: () => {
+        console.log("end");
+      }
+    })
 
-    const goHome = () => {
-      if(userInfo.id.length < 1){
-        console.log("아이디를 입력해주세요.");
+    const loginHandler = () => {
+      const { id, password } = userInfo;
+
+      if(id.length < 1){
+        toast.error("아이디를 입력해주세요.");
+        return ;
+      }
+
+      if(password.length < 1){
+        toast.error("패스워트를 입력해주세요.");
         return;
       }
 
-      if(userInfo.password.length < 1){
-        console.log("패스워트를 입력해주세요.");
-        return;
-      }
+      loginMutation.mutate(userInfo);
+    }
+
+    const errorHandler = (error) => {
+      const { response } = error;
+      const message = response.data.retMsg;
+      toast.error(message);
+    }
+
+    const login = () => {
 
       if(gettingUserInfo() === null){
         // TODO: 회원가입 페이지 버튼 또는 모달 만들기 
         console.log("회원가입페이지로 이동!");
-        history.replace('/signup')
+        history.replace('/signup');
         return;
       }
 
@@ -49,16 +79,10 @@ const LoginPage = ({history} : any) => {
         console.log("회원정보가 일치하지 않습니다.");
       }
     }
-    // TODO: userInfo type 만들기
-    // const loginTest = async (params: object) => {
-    //   const res = await api.getLogin(params);
-    //   console.log("res login", res);
-    // }
 
     const settingUserInfo = (e) => {
       const { name, value } = e.target;
       if(name === 'id'){
-        console.log("name", value);
         setUserInfo({...userInfo, id: value })
       }else {
         setUserInfo({...userInfo, password: value })
@@ -71,8 +95,9 @@ const LoginPage = ({history} : any) => {
       <div>
         <input type="text" placeholder="아이디입력" name='id' value={userInfo.id} onChange={(e) => settingUserInfo(e)} />
         <input type="password" placeholder="비밀번호 입력" name='password' value={userInfo.password} onChange={(e) => settingUserInfo(e)} />      
-        <LoginButton onClick={goHome} />            
+        <LoginButton onClick={loginHandler} />            
       </div>
+      <ToastContainer theme="colored" position="top-right" autoClose={2000} />
       </>
     )
 }
