@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router';
 import { getSignUp } from '../../api';
 import { settingUserInfo } from '../../store/LocalStore';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function SignUp() {
 
@@ -38,11 +40,11 @@ function SignUp() {
   // toast popup으로 하기
   const signUpOnClick = async () => {
     if(userInfo.id.length < 1){
-      console.log("id를 입력해주세요!")
+      toast.error("id를 입력해주세요!");
     } else if (userInfo.password.length < 1){
-      console.log("password를 입력해주세요!")
+      toast.error("password를 입력해주세요!");
     } else if (userInfo.password2.length < 1){
-      console.log("password를 재확인해주세요!")
+      toast.error("password를 재확인해주세요!");
     } else {
       // 만약 비밀번호가 틀린상태 여보 회원가입을 성공함 
       if(passwordConfirm){
@@ -52,13 +54,14 @@ function SignUp() {
         };
         const result = await getSignUp(setUserInfo);
         if(result.retCode === "0001"){
-          console.log("이미 가입된 회원이다.");
+          toast.error("이미 가입된 회원이다.");
           return;
         }
+        toast.success("회원가입성공"); // success 사용여부 확인
         settingUserInfo(setUserInfo);
         history.push('/home');
       }else {
-        console.log("비밀번호 확인!");
+        toast.error("비밀번호 확인!");
       }
     }
   }
@@ -85,7 +88,7 @@ function SignUp() {
 
       <button onClick={signUpOnClick}>가입하기</button>
       <button>다음에 하기</button>
-
+      <ToastContainer theme="colored" position="top-right" autoClose={2000} />
     </>
   )
 }
