@@ -23,7 +23,7 @@ const LoginPage = ({history} : any) => {
         errorHandler(error);
       },
       onSuccess: (data, variables, context) => {
-        // settingUserInfo(userInfo);
+        settingUserInfo(userInfo);
         history.push("/home");
         console.log("success", data, variables, context);
       },
