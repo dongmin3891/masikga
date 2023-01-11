@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { withRouter } from "react-router";
 import LoginButton from "../../components/login";
-import { gettingUserInfo } from "../../store/LocalStore";
+import { gettingUserInfo, settingUserInfo } from "../../store/LocalStore";
 import { getLogin } from "../../api";
 import { useMutation } from "react-query";
 import { ToastContainer, toast } from 'react-toastify';
@@ -80,7 +80,7 @@ const LoginPage = ({history} : any) => {
       }
     }
 
-    const settingUserInfo = (e) => {
+    const userInfoHandler = (e) => {
       const { name, value } = e.target;
       if(name === 'id'){
         setUserInfo({...userInfo, id: value })
@@ -95,9 +95,9 @@ const LoginPage = ({history} : any) => {
     return (
       <>
       <div>
-        <input type="text" placeholder="아이디입력" name='id' value={userInfo.id} onChange={(e) => settingUserInfo(e)} />
-        <input type="password" placeholder="비밀번호 입력" name='password' value={userInfo.password} onChange={(e) => settingUserInfo(e)} /> 
-        <button onClick={() => history.push("/signup")}>회원가입</button>
+        <input type="text" placeholder="아이디입력" name='id' value={userInfo.id} onChange={(e) => userInfoHandler(e)} />
+        <input type="password" placeholder="비밀번호 입력" name='password' value={userInfo.password} onChange={(e) => userInfoHandler(e)} />      
+        <LoginButton onClick={loginHandler} />            
       </div>
       <LoginButton onClick={loginHandler} />
       <ToastContainer theme="colored" position="top-right" autoClose={2000} />
