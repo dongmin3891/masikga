@@ -4,8 +4,8 @@ const User = require('../../schema/user')
 
 let data = {
   retSysMsg : "SUCCESS",
-  retCode: "0000",
-  retMsg: "SUCCESS",
+  retCode: "",
+  retMsg: "",
 }
 
 router.post('/', async function(req, res, next) {
@@ -14,11 +14,9 @@ router.post('/', async function(req, res, next) {
   //이미 존재하는 경우
   if (user) {
       data.retCode = "0001" // TODO: retCode 실패 코드 재정의
-      data.retSysMsg = "SUCCESS"
-      data.retMsg = "User already exists"
-      // return res.status(400).json({ errors: [{ msg: "User already exists" }]});
+      data.retMsg = "아이디가 이미 존재합니다."
+      res.statusCode = 400;
       return res.json(data);
-
   };
   user = new User({
     id,
@@ -26,6 +24,8 @@ router.post('/', async function(req, res, next) {
   })
 
   await user.save();
+  data.retCode = "0000" // TODO: retCode 실패 코드 재정의
+  data.retMsg = "SUCCESS"
   res.statusCode = 200;
   res.json(data);
   // res.render('index', data );
