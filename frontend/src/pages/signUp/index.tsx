@@ -4,6 +4,7 @@ import { getSignUp } from '../../api';
 import { settingUserInfo } from '../../store/LocalStore';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useMutation } from 'react-query';
 
 function SignUp() {
 
@@ -12,8 +13,28 @@ function SignUp() {
     password: '',
     password2: '',
   })
-  const [passwordConfirm, setPasswordConfirm] = useState(true);
+  const [passwordConfirm, setPasswordConfirm] = useState(false);
+  
+  // TODO: useHistory 모듈화
   const history = useHistory();
+
+  const signUpMutation = useMutation(getSignUp, {
+    onMutate: (variable) => {
+      console.log("onMutate", variable);
+    },
+    onError: (error : any) => {
+      // error
+      errorHandler(error);
+    },
+    onSuccess: (data, variable, context) => {
+      // success
+      toast.success('회원가입이 완료되었습니다!');
+      history.goBack();
+    },
+    onSettled: () => {
+      // fainally
+    }
+  })
 
   useEffect(() => {
     if(userInfo.password.length > 0 && userInfo.password2.length > 0){
@@ -26,9 +47,15 @@ function SignUp() {
     
   },[userInfo.password, userInfo.password2])
 
+  // 공통화 
+  const errorHandler = (error) => {
+    const { response } = error;
+    const message = response.data.retMsg;
+    toast.error(message);
+  }
+
   const saveUserInfo = (e) => {
     const { name, value } = e.target;
-    console.log("e.target", e.target);
     if(name === 'id'){
       setUserInfo({...userInfo, id: value })
     }else if(name ==='password' ){
@@ -39,7 +66,7 @@ function SignUp() {
   }
   // toast popup으로 하기
   const signUpOnClick = async () => {
-    if(userInfo.id.length < 1){
+    if(userInfo.id.length < 1){ // 중복 id 체크
       toast.error("id를 입력해주세요!");
     } else if (userInfo.password.length < 1){
       toast.error("password를 입력해주세요!");
@@ -59,10 +86,37 @@ function SignUp() {
         }
         toast.success("회원가입성공"); // success 사용여부 확인
         settingUserInfo(setUserInfo);
-        history.push('/home');
+        history.goBack();
       }else {
         toast.error("비밀번호 확인!");
       }
+    }
+  }
+
+  const signUpHandler = async () => {
+    const { id, password, password2} = userInfo;
+    
+    if(id.length < 1){
+      toast.error("id를 입력해주세요!");
+      return;
+    }
+
+    if(password.length < 1){
+      toast.error("password를 입력해주세요!");
+      return;
+    }
+
+    if(password2.length < 1){
+      toast.error("password를 재확인해주세요!");
+      return;
+    }
+
+    if(passwordConfirm){
+      const params = {
+        id: id,
+        password: password2
+      }
+      signUpMutation.mutate(params);
     }
   }
 
@@ -86,7 +140,7 @@ function SignUp() {
         <div>비밀번호가 일치하지 않습니다!</div>
       }
 
-      <button onClick={signUpOnClick}>가입하기</button>
+      <button onClick={signUpHandler}>가입하기</button>
       <button>다음에 하기</button>
       <ToastContainer theme="colored" position="top-right" autoClose={2000} />
     </>
