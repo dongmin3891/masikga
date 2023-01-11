@@ -16,7 +16,7 @@ const LoginPage = ({history} : any) => {
     });  
 
     const loginMutation = useMutation(getLogin, {
-      onMutate: variable => {
+      onMutate: (variable : UserInfo) => {
         console.log("onMutate", variable);
       },
       onError: (error : any) => {
@@ -31,20 +31,7 @@ const LoginPage = ({history} : any) => {
         console.log("end");
       }
     })
-
-    useEffect(() => {
-      console.log("배포 테스트@@@@@@@@@@@@@@@@@@@@@@@@");
-    }, [])
-     useEffect(() => {
-      console.log("배포 테스트1@@@@@@@@@@@@@@@@@@@@@@@@");
-    }, [])
-
-    useEffect(() => {
-      console.log("배포 테스트2@@@@@@@@@@@@@@@@@@@@@@@@");
-    }, [])
-    useEffect(() => {
-      console.log("배포 테스트3@@@@@@@@@@@@@@@@@@@@@@@@");
-    }, [])
+    
     const loginHandler = () => {
       const { id, password } = userInfo;
 
@@ -101,6 +88,8 @@ const LoginPage = ({history} : any) => {
         setUserInfo({...userInfo, password: value })
       }
     }
+
+
     
 
     return (
@@ -110,6 +99,7 @@ const LoginPage = ({history} : any) => {
         <input type="password" placeholder="비밀번호 입력" name='password' value={userInfo.password} onChange={(e) => userInfoHandler(e)} />      
         <LoginButton onClick={loginHandler} />            
       </div>
+      <LoginButton onClick={loginHandler} />
       <ToastContainer theme="colored" position="top-right" autoClose={2000} />
       </>
     )
