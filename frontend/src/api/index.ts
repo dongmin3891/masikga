@@ -1,6 +1,8 @@
 import axios, { AxiosResponse } from 'axios';
 import CategoryList from '../interfaces/CategoryList';
 import MenuListType from '../interfaces/menuList';
+import { gettingAuthToken, settingAuthToken } from '../store/LocalStore';
+import { getRefreshTokenToCookie } from '../utils/auth';
 
 export const apiClient = axios.create({
     baseURL: process.env.REACT_APP_API_SERVER,
@@ -12,6 +14,8 @@ export const apiClient = axios.create({
 });
 apiClient.interceptors.request.use(
     function (config) {
+      console.log("getAccessToken ===>", gettingAuthToken());
+      setAuthToken(gettingAuthToken());
         return config;
     },
     function (error) {
@@ -20,13 +24,40 @@ apiClient.interceptors.request.use(
     }
 );
 apiClient.interceptors.response.use((response: AxiosResponse) => {
-    console.log("response", response);
+    
     if(response.data.retCode === "0000") {
         const res = response.data
         return res;
     } 
     return response.data;
-})
+
+},  async (error) => {
+      const {config, response: { status }} = error;
+      if(status === 401){
+        const prevRequest = config
+
+        getNewAccessToken().then((result) => {
+          console.log("result refresh", result.accessToken);
+          const newAccessToken = result.accessToken;
+          settingAuthToken(newAccessToken);
+          setAuthToken(newAccessToken);
+        }).catch((e) => {
+          console.log(e);
+        })
+        // return apiClient(prevRequest);
+      }
+      return;
+    }
+)
+
+export const setAuthToken = (token) => {
+  console.log("token, token", token);
+  apiClient.defaults.headers.common['x-auth-token'] = token;
+}
+export const setRefreshToken = (token) => {
+  apiClient.defaults.headers.common['refresh-token'] = token;
+}
+
 
 export const getHelloWorld = async() => {
   const response = await apiClient.get<any>('/api/hello');
@@ -56,36 +87,10 @@ export const getLogin = async(data) => {
   return response;
 }
 
-// export default {
-//     // test api
-//     getHelloWorld(data = '') {
-//         return apiClient({
-//             url : '/api/hello',
-//             method : 'get',
-//             params : data
-//         })
-//     },
-//     getMenuList(data = 'A') {
-//         return apiClient({
-//             url : '/menuList',
-//             method : 'post',
-//             data : {kind: data}
-//         })
-//     },
-//     getCategoryList(data = '') {
-//         return apiClient({
-//             url : '/category',
-//             method : 'get',
-//             params : data
-//         })
-//     },
-//     getSignUp(data:object) {
-//       return apiClient({
-//         url: '/member/signup',
-//         method:'post',
-//         data: data
-//       })
-//     }
-// }
-
-
+export const getNewAccessToken = async() => {
+  // cookie
+  const refreshToken = getRefreshTokenToCookie();
+  setRefreshToken(refreshToken);
+  const response = await apiClient.get<any>('/member/refresh');
+  return response;
+}
