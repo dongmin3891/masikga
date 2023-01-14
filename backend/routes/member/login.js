@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../../schema/user')
+const jwt = require('../../utils/jwt');
 
 let data = {
   retSysMsg : "",
@@ -11,7 +12,6 @@ let data = {
 router.post('/', async function(req, res, next) {
   const { id, password } = req.body;
   let user = await User.findOne({id});
-  console.log("findUser", user);
   if(!user){
     data.retCode = "0002"
     data.retSysMsg = "SUCCESS"
@@ -29,12 +29,21 @@ router.post('/', async function(req, res, next) {
 
     return res.json(data);
   }
-  data.retCode = "0000";
-  data.retSysMsg = "SUCCESS";
-  data.retMsg = "SUCCESS";
+
+  const accessToken = await jwt.sign(id);
+  const refreshToken = await jwt.refresh(id);
+
+  const jwtToken = {
+    accessToken : accessToken,
+    refreshToken : refreshToken,
+  }
+
+  jwtToken.retCode = "0000";
+  jwtToken.retSysMsg = "SUCCESS";
+  jwtToken.retMsg = "SUCCESS";
   res.statusCode = 200;
 
-  res.json(data);
+  res.json(jwtToken);
   // res.render('index', data );
 });
 
