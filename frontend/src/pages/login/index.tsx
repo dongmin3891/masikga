@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react"
 import { withRouter } from "react-router";
 import LoginButton from "../../components/login";
-import { gettingUserInfo, settingUserInfo } from "../../store/LocalStore";
-import { getLogin } from "../../api";
+import { gettingUserInfo, settingAuthToken, settingUserInfo } from "../../store/LocalStore";
+import { getLogin, setAuthToken } from "../../api";
 import { useMutation } from "react-query";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UserInfo from "../../interfaces/userInfo";
+import { setRefreshTokenToCookie } from "../../utils/auth";
 
 const LoginPage = ({history} : any) => {
     
@@ -23,9 +24,12 @@ const LoginPage = ({history} : any) => {
         errorHandler(error);
       },
       onSuccess: (data, variables, context) => {
-        settingUserInfo(userInfo);
+        settingAuthToken(data.accessToken); // 로컬스토리지에 accessToken 저장
+        settingUserInfo(userInfo); // 사용자 정보 저장
+        setAuthToken(data.accessToken); // headers에 셋팅
+        setRefreshTokenToCookie(data.refreshToken); // 쿠키에 refreshToken 저장
+        
         history.push("/home");
-        console.log("success", data, variables, context);
       },
       onSettled: () => {
         console.log("end");
