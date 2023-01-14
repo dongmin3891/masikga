@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../utils/auth').checkToken ;
 
 // TODO : category id에 따라 id에 맞는 것만 호출해야함 일단은 dummy로
 // 타입별로 따로 api를 설계해야되나
@@ -78,7 +79,9 @@ const filterMenuList = (kind = 'A') => {
   return cloneMenu;
 }
 
-router.post('/', function (req, res, next) {
+router.post('/', auth ,function (req, res) {
+    console.log("reqid", req.id);
+
     let returnMenu;
     let pars = (Object.keys(req.body).length > 0)? req.body : req.query;
     if(pars.kind !== 'A') returnMenu = filterMenuList(pars.kind);
