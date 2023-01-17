@@ -22,6 +22,7 @@ const Main = () => {
       history.replace({pathname: '/home' });
     }
   }, [])
+  console.log("배포테스트@@");
 
   return (
     <>
