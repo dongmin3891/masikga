@@ -1,7 +1,7 @@
 name: remote ssh command for deploy
 on:
  push:
-   branches: [develop-v1]
+   branches: [main]
 jobs:
  build:
    name: Build
