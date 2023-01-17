@@ -35,7 +35,7 @@ const LoginPage = ({history} : any) => {
         console.log("end");
       }
     })
-    
+    console.log("push test");    
     const loginHandler = () => {
       const { id, password } = userInfo;
 
