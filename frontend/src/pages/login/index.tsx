@@ -110,7 +110,7 @@ const LoginPage = ({history} : any) => {
           <h1 className="login-header">Sign In</h1>
 
             <BasicInput 
-              placeholder="아이디를 입력해주세요." 
+              placeholder="아이디를 입력해주세요!!!!!!!." 
               variant="standard" 
               value={userInfo.id}
               name="id"
