@@ -3,11 +3,13 @@ import MenuListType from "../../../interfaces/menuList";
 import { useQuery, useMutation } from "react-query"
 import { getMenuList } from "../../../api";
 import { AxiosError } from "axios";
+import MenuCard from "../../../components/MenuCard";
+import Grid from '@mui/material/Grid';
 
 interface IProps {
   menuId: string;
 }
-interface QueryDataType {
+export interface QueryDataType {
   data?: Array<MenuListType>
 }
 
@@ -32,18 +34,22 @@ const Menu = ( { menuId } : IProps) => {
 
 	return (
 		<div>
-			<h1>Menu Component</h1>
-      <div>
-        <ul>
+			{/* <h1>메뉴 리스트</h1> */}
+      <div  >
+        <ul className="menu_box">
+      <Grid container rowSpacing={0} columnSpacing={0}  >
           {menuList?.data?.map((items) => (
-            <li key={items.id}>
-              <h3>{items.storeName}</h3>
-              {/* <img alt=''>임시 이미지</img> */}
-              {items.foodName[0].name}
-              <div>{items.location}</div>
-            </li>
+            <Grid xs={6} sm={3} key={items.id} style={{verticalAlign:"middle",display:'inline-block' }}>
+              <MenuCard 
+                storeName={items.storeName}
+                foodName={items.foodName}
+                location={items.location}
+              />
+            </Grid>
           ))}
+        </Grid>
         </ul>
+
       </div>
     </div>
 	)
