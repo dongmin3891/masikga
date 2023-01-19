@@ -36,15 +36,15 @@ apiClient.interceptors.response.use((response: AxiosResponse) => {
       if(status === 401){
         const prevRequest = config
 
-        getNewAccessToken().then((result) => {
-          console.log("result refresh", result.accessToken);
+        getNewAccessToken().then((result:any) => {
           const newAccessToken = result.accessToken;
           settingAuthToken(newAccessToken);
           setAuthToken(newAccessToken);
+          config.headers['x-auth-token'] = newAccessToken; //참고
+          axios.request(config);
         }).catch((e) => {
           console.log(e);
         })
-        // return apiClient(prevRequest);
       }
       return;
     }
@@ -90,7 +90,10 @@ export const getLogin = async(data) => {
 export const getNewAccessToken = async() => {
   // cookie
   const refreshToken = getRefreshTokenToCookie();
-  setRefreshToken(refreshToken);
-  const response = await apiClient.get<any>('/member/refresh');
+  const headers = {
+    'refresh-token': refreshToken
+  }
+  ;
+  const response = await apiClient.get<any>('/member/refresh', {headers});
   return response;
 }
