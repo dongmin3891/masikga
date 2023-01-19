@@ -8,6 +8,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UserInfo from "../../interfaces/userInfo";
 import { setRefreshTokenToCookie } from "../../utils/auth";
+import BasicButton from "../../components/BasicButton";
+import BoxSx from "../../components/BoxSx";
+import ContainerSm from "../../components/Container";
+import BasicInput from "../../components/BasicInput";
 
 const LoginPage = ({history} : any) => {
     
@@ -23,7 +27,7 @@ const LoginPage = ({history} : any) => {
       onError: (error : any) => {
         errorHandler(error);
       },
-      onSuccess: (data, variables, context) => {
+      onSuccess: (data: any, variables, context) => {
         settingAuthToken(data.accessToken); // 로컬스토리지에 accessToken 저장
         settingUserInfo(userInfo); // 사용자 정보 저장
         setAuthToken(data.accessToken); // headers에 셋팅
@@ -98,12 +102,38 @@ const LoginPage = ({history} : any) => {
 
     return (
       <>
-      <div>
-        <input type="text" placeholder="아이디입력" name='id' value={userInfo.id} onChange={(e) => userInfoHandler(e)} />
-        <input type="password" placeholder="비밀번호 입력" name='password' value={userInfo.password} onChange={(e) => userInfoHandler(e)} />      
-        <LoginButton onClick={loginHandler} />            
-      </div>
-      <LoginButton onClick={loginHandler} />
+      {/* <ContainerSm> */}
+      {/* <BoxSx> */}
+        <div className="login_container">
+          
+          <div className="login_items">
+          <h1 className="login-header">Sign In</h1>
+
+            <BasicInput 
+              placeholder="아이디를 입력해주세요." 
+              variant="standard" 
+              value={userInfo.id}
+              name="id"
+              onChange={(e) => userInfoHandler(e)}  
+            />
+            <BasicInput 
+              placeholder="비밀번호를 입력해주세요." 
+              variant="standard" 
+              value={userInfo.password}
+              name="password"
+              type="password"
+              onChange={(e) => userInfoHandler(e)}  
+            />
+            {/* <input className="login-input" type="text" placeholder="아이디입력" name='id' value={userInfo.id} onChange={(e) => userInfoHandler(e)} /> */}
+            {/* <input className="login-input" type="password" placeholder="비밀번호 입력" name='password' value={userInfo.password} onChange={(e) => userInfoHandler(e)} />       */}
+            <div>
+              <BasicButton className="signin-button" text='로그인' variant="contained" onClick={loginHandler}></BasicButton>
+              <BasicButton className="signup-button" text='회원가입' variant="contained" onClick={()=>history.push('/signup')}></BasicButton>
+            </div>
+          </div>
+        </div>
+      {/* </BoxSx> */}
+      {/* </ContainerSm> */}
       <ToastContainer theme="colored" position="top-right" autoClose={2000} />
       </>
     )

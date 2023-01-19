@@ -30,7 +30,7 @@ const Main = () => {
         {/* <Header />
         <Login />  */}
         {/* <BrowserRouter> */}
-          <GlobalStyles />
+          {/* <GlobalStyles /> */}
           <Header />
             <Switch>
                 <Route exact path='/home' component={Home}/>
