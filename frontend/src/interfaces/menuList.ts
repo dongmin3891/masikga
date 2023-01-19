@@ -1,10 +1,10 @@
-interface FoodName {
+export default interface FoodName {
     id: string;
     foodKind: string;
     name : string;
 }
 export default interface MenuListType {
-    id: number;
+    id: string;
     storekind : string;
     image : string;
     foodName : FoodName[];

@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { useHistory } from 'react-router';
+import BasicButton from '../BasicButton';
 // import styled from 'styled-components';
 
 interface IProps {
@@ -22,7 +23,13 @@ const CategoryButton = ({ menuId, categoryName, onClick, setMenuId } : IProps) =
   }
   // returnSetItem: Dispatch<SetStateAction<string[]>>;
   return (
-        <button type="button" id={String(menuId)} key={menuId} onClick={(e) =>onClick(e)} >{categoryName}</button>
+        <BasicButton 
+          text={categoryName}
+          variant='outlined'
+          id={String(menuId)}
+          onClick={(e) => onClick(e)}
+        />
+        // <button type="button" id={String(menuId)} key={menuId} onClick={(e) =>onClick(e)} >{categoryName}</button>
   );
 }
 

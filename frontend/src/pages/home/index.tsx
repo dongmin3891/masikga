@@ -5,6 +5,7 @@ import CategoryList from "../../interfaces/CategoryList";
 import CategoryButton from "../../components/home";
 import { useQuery } from "react-query";
 import { AxiosError } from "axios";
+import RecipeReviewCard from "../../components/MenuCard";
 
 
 interface QueryDataType {
@@ -38,9 +39,11 @@ const Home = () => {
   
   return (
     <>
-        <div>
-          메뉴를 골라줘
-        </div>
+      <div className="home_wrap">
+        <div className="home_box">
+        <h1 className="home_category_title">
+          카테고리 리스트
+        </h1>
         {
             categoryList?.data?.map((items) => (
               <CategoryButton 
@@ -53,6 +56,8 @@ const Home = () => {
             ))
         }
         <Menu menuId={menuId}/>
+        </div>
+      </div>
     </>
   )
 }
