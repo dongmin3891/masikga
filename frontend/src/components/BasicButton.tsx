@@ -5,7 +5,7 @@ interface IProps {
   text:string;
   variant: 'contained' | 'outlined';
   onClick: (e:any) => void;
-  id: string
+  id?: string
 }
 
 const BasicButton = ({ className, text, variant, onClick, id }:IProps) => {
