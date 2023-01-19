@@ -107,7 +107,7 @@ const LoginPage = ({history} : any) => {
         <div className="login_container">
           
           <div className="login_items">
-          <h1 className="login-header">Sign In</h1>
+          <h1 className="login-header">로그인</h1>
 
             <BasicInput 
               placeholder="아이디를 입력해주세요!!!!!!!." 
