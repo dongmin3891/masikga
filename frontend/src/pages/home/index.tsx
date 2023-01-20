@@ -6,6 +6,7 @@ import CategoryButton from "../../components/home";
 import { useQuery } from "react-query";
 import { AxiosError } from "axios";
 import RecipeReviewCard from "../../components/MenuCard";
+import Header from "../../components/header";
 
 
 interface QueryDataType {
@@ -39,6 +40,7 @@ const Home = () => {
   
   return (
     <>
+      <Header />
       <div className="home_wrap">
         <div className="home_box">
         <h1 className="home_category_title">
