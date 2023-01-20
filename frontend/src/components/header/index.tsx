@@ -7,14 +7,18 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useHistory } from 'react-router';
+import { LocalStorageClear } from '../../store/LocalStore';
+import { removeCookie } from '../../utils/auth';
 
 const Header = () :JSX.Element => {
   
   const history = useHistory();
 
   const logoutHandler = () => {
+    LocalStorageClear();
+    removeCookie('refresh_token');
     // TODO: 로그아웃 프로세스 정의
-    history.push('/login');
+    history.replace('/login');
   }
 
   return (
@@ -34,16 +38,10 @@ const Header = () :JSX.Element => {
           <Typography variant="h3" component="div" sx={{ flexGrow: 1 }}>
                             마식가
           </Typography>
-          <Button color="inherit">Logout</Button>
+          <Button color="inherit" onClick={logoutHandler}>Logout</Button>
         </Toolbar>
       </AppBar>
     </Box>
-    
-        // <div className='header'>
-        //         <header>마 식 가</header>
-        //         <span></span>
-        //         {/* <button type='button'>햄버거</button> */}
-        // </div>
   );
 }
 
