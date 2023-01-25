@@ -8,3 +8,7 @@ export const setRefreshTokenToCookie = (refresh_token) => {
 export const getRefreshTokenToCookie = () => {
   return cookies.get('refresh_token');
 }
+
+export const removeCookie = (name) => {
+  cookies.remove(name);
+}

@@ -25,7 +25,6 @@ const Menu = ( { menuId } : IProps) => {
   );
   
 	useEffect(() => {
-    console.log("rendering");
     mutate(menuId);
 	},[menuId])
   

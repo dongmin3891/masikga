@@ -31,3 +31,7 @@ export const gettingAuthToken = () => {
     return null;
   }
 }
+
+export const LocalStorageClear = () => {
+  window.localStorage.clear();
+}

@@ -14,12 +14,10 @@ export const apiClient = axios.create({
 });
 apiClient.interceptors.request.use(
     function (config) {
-      console.log("getAccessToken ===>", gettingAuthToken());
       setAuthToken(gettingAuthToken());
         return config;
     },
     function (error) {
-        console.log("error");
         return Promise.reject(error);
     }
 );
@@ -32,26 +30,25 @@ apiClient.interceptors.response.use((response: AxiosResponse) => {
     return response.data;
 
 },  async (error) => {
-      const {config, response: { status }} = error;
-      if(status === 401){
-        const prevRequest = config
+      // const {config, response: { status }} = error;
+      // if(status === 401){
+      //   const prevRequest = config
 
-        getNewAccessToken().then((result:any) => {
-          const newAccessToken = result.accessToken;
-          settingAuthToken(newAccessToken);
-          setAuthToken(newAccessToken);
-          config.headers['x-auth-token'] = newAccessToken; //참고
-          axios.request(config);
-        }).catch((e) => {
-          console.log(e);
-        })
-      }
-      return;
+      //   getNewAccessToken().then((result:any) => {
+      //     const newAccessToken = result.accessToken;
+      //     settingAuthToken(newAccessToken);
+      //     setAuthToken(newAccessToken);
+      //     config.headers['x-auth-token'] = newAccessToken; //참고
+      //     axios.request(config);
+      //   }).catch((e) => {
+      //     console.log(e);
+      //   })
+      // }
+      // return;
     }
 )
 
 export const setAuthToken = (token) => {
-  console.log("token, token", token);
   apiClient.defaults.headers.common['x-auth-token'] = token;
 }
 export const setRefreshToken = (token) => {
@@ -91,6 +88,7 @@ export const getNewAccessToken = async() => {
   // cookie
   const refreshToken = getRefreshTokenToCookie();
   const headers = {
+    'x-auth-token': gettingAuthToken(),
     'refresh-token': refreshToken
   }
   ;
