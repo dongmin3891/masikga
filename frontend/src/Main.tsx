@@ -17,7 +17,6 @@ const Main = () => {
   // UseSlientRefresh()
   // TODO : 로그인 기능 만들어서 메인쪽에서 로그인에 필요한 데이터가 없을 때
   // 강제로 로그인 페이지로 이동하는 기능 구현해야함
-  // console.log("location", location.pathname);
   // useEffect(() => {
     
   // },[])
@@ -32,7 +31,6 @@ const Main = () => {
       history.replace({pathname: '/home' });
     }
   }, [])
-  console.log(history.location);
 
   return (
     <>
@@ -46,7 +44,6 @@ const Main = () => {
                 <Route path='/login' component={LoginPage} />
                 <Route path='/signup' component={SignUp} />
             </Switch>
-            {console.log("history.location.pathname", history.location.pathname)}
             {/* 조건 생각 */}
             {
             // (history.location.pathname === '/') && 

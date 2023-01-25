@@ -7,7 +7,6 @@ import { settingAuthToken } from '../../store/LocalStore';
 const UseSlientRefresh = () => {
 
   const [refreshStop, setRefreshStop] = useState(false);
-  console.log("useRefresh ===>");
   useQuery('refresh', getNewAccessToken, {
     refetchOnWindowFocus: false,
     refetchOnMount: false,
@@ -16,15 +15,12 @@ const UseSlientRefresh = () => {
     refetchInterval: refreshStop ? false : 60 * 55 * 1000, // 만료시간 설정
     refetchIntervalInBackground: true,
     onError: () => {
-      console.log("slient refresh onError ===>");
       setRefreshStop(true);
       // token값 비우기
       settingAuthToken('');
     },
     onSuccess: (data:any) => {
-      console.log("refresh Token ===>", data);
       const token = data?.accessToken;
-      console.log("data Token get ===>", token);
       if(token) settingAuthToken(token);
     }
   })

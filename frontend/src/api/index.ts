@@ -14,12 +14,10 @@ export const apiClient = axios.create({
 });
 apiClient.interceptors.request.use(
     function (config) {
-      console.log("gettingAuthToken ===>", gettingAuthToken());
       setAuthToken(gettingAuthToken());
         return config;
     },
     function (error) {
-        console.log("error");
         return Promise.reject(error);
     }
 );
@@ -51,7 +49,6 @@ apiClient.interceptors.response.use((response: AxiosResponse) => {
 )
 
 export const setAuthToken = (token) => {
-  console.log("token, token", token);
   apiClient.defaults.headers.common['x-auth-token'] = token;
 }
 export const setRefreshToken = (token) => {
