@@ -29,14 +29,13 @@ const authUtil = {
     }
   },
   refresh : async(req, res) => {
-    console.log("refresh api", req.header("x-auth-token"));
     const accessToken = req.header("x-auth-token");
     const refreshToken = req.header("refresh-token");
-
+    console.log("accessToken && refreshToken ",accessToken, refreshToken);
     if(accessToken && refreshToken){
       const accessTokenVerify = await jwt.verify(accessToken, secretKey);
-      
-      if(accessTokenVerify === TOKEN_EXPIRED){ // 유효기간만료인 경우
+      //refresh를 만료전에 처리해도 될런지
+      // if(accessTokenVerify === TOKEN_EXPIRED){ // 유효기간만료인 경우
         const decoded = await jwt_decode(accessToken);
         console.log("decoded @@@@", decoded);
         // refreshtoken
@@ -55,9 +54,11 @@ const authUtil = {
           }
           return res.status(200).json(jwtToken); // 새로 발급한 access token과 원래 있던 refresh token 모두 클라이언트에게 반환합니다.
         }
-      }else{
-        return res.status(401).json({ msg: "Access token is not expired!"});
-      }
+      // }else{
+        // 만료되지 않은 경우에도 새로 발급처리
+        console.log("임시");
+        return res.status(200).json({ msg: "Access token is not expired!"});
+      // }
     }else {
       return res.status(401).json({ msg: "Access token and refresh token are need for refresh!"});
     }
