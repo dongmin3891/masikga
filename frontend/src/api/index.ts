@@ -14,7 +14,7 @@ export const apiClient = axios.create({
 });
 apiClient.interceptors.request.use(
     function (config) {
-      console.log("getAccessToken ===>", gettingAuthToken());
+      console.log("gettingAuthToken ===>", gettingAuthToken());
       setAuthToken(gettingAuthToken());
         return config;
     },
@@ -32,21 +32,21 @@ apiClient.interceptors.response.use((response: AxiosResponse) => {
     return response.data;
 
 },  async (error) => {
-      const {config, response: { status }} = error;
-      if(status === 401){
-        const prevRequest = config
+      // const {config, response: { status }} = error;
+      // if(status === 401){
+      //   const prevRequest = config
 
-        getNewAccessToken().then((result:any) => {
-          const newAccessToken = result.accessToken;
-          settingAuthToken(newAccessToken);
-          setAuthToken(newAccessToken);
-          config.headers['x-auth-token'] = newAccessToken; //참고
-          axios.request(config);
-        }).catch((e) => {
-          console.log(e);
-        })
-      }
-      return;
+      //   getNewAccessToken().then((result:any) => {
+      //     const newAccessToken = result.accessToken;
+      //     settingAuthToken(newAccessToken);
+      //     setAuthToken(newAccessToken);
+      //     config.headers['x-auth-token'] = newAccessToken; //참고
+      //     axios.request(config);
+      //   }).catch((e) => {
+      //     console.log(e);
+      //   })
+      // }
+      // return;
     }
 )
 
@@ -91,6 +91,7 @@ export const getNewAccessToken = async() => {
   // cookie
   const refreshToken = getRefreshTokenToCookie();
   const headers = {
+    'x-auth-token': gettingAuthToken(),
     'refresh-token': refreshToken
   }
   ;
